@@ -1,3 +1,5 @@
+------------------------------------------------------------------------------------------------------------------------------------------
+#Blackjack Own
 logo = """
 .------.            _     _            _    _            _    
 |A_  _ |.          | |   | |          | |  (_)          | |   
@@ -10,50 +12,76 @@ logo = """
 """
 
 print(logo)
-hit_count=2
+
 def hit():
+    global user_hit_count,user_cards_total,continue_game
+    user_hit_count+=1
     c=random.choice(cards)
     user_cards.append(c)
     print("These are you cards now: ",user_cards)
-    for i in range(hit_count):
-        user_cards_total=user_cards_total+user_cards[i]
+    #for i in range(user_hit_count):
+        #print(user_hit_count)
+    user_cards_total=user_cards_total+c
     print("Now your total is: ", user_cards_total)
-    hit_count+=1
+    if user_cards_total>21:
+        print("You have busted")
+        continue_game="false"
 
 def stand():
-    #print("stand")
+    global computer_hit_count,computer_cards_total,continue_game
     d=random.choice(cards)
     computer_cards.append(d)
     print("These are the computer's cards: ",computer_cards)
+    #continue_game="false"
+    """while computer_cards_total<21:
+        for i in range(computer_hit_count):
+            computer_cards_total=computer_cards_total+computer_cards[i]"""
+    computer_cards_total=computer_cards_total+d
+    print("Now the computer total is: ", computer_cards_total)
+    if computer_cards_total>21:
+        print("You won")
+        continue_game="false"
+    elif computer_cards_total<=21:
+        stand()
 
+#import statements        
 import random
+
+#global vars declaration
 i=0
 user_cards_total=0
-hit_count=2
+user_hit_count=2
+computer_hit_count=2
 computer_cards_total=0
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 user_cards = []
 computer_cards = []
+continue_game="true"
+
+#def deal_cards()
 while i<2:
     a=random.choice(cards)
     user_cards.append(a)
     i+=1
 print("These are your cards",user_cards)
-print("Your total = ",user_cards[0]+user_cards[1])
+user_cards_total=user_cards[0]+user_cards[1]
+print("Your total = ",user_cards_total)
 j=0
 while j<2:
     b=random.choice(cards)
     computer_cards.append(b)
     j+=1
 print("These are the computer cards * and ",computer_cards[0])
-proceed=input("You want me to hit or stand? ")
-if proceed=="hit":
-    hit()
-elif proceed=="stand":
-    stand()
-else:
-    print("Choose between hit or stand")
-
+computer_cards_total=computer_cards[0]+computer_cards[1]
+while continue_game=="true":
+    proceed=input("You want me to hit or stand? ")
+    if proceed=="hit":
+        hit()
+    elif proceed=="stand":
+        #continue_game="false"
+        stand()
+    else:
+        print("Choose between hit or stand")
 ------------------------------------------------------------------------------------------------------------------------------------------
 
 ############### Blackjack Project #####################
